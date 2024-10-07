@@ -20,12 +20,20 @@ public class PlayerMovementBehaivour : MonoBehaviour
         if (Input.GetKey(KeyCode.S)) { movementDirection += Vector3.back; }
         if (Input.GetKey(KeyCode.A)) { movementDirection += Vector3.left; }
         if (Input.GetKey(KeyCode.D)) { movementDirection += Vector3.right; }
-
-        transform.position +=
-            (movementDirection.z * transform.forward +
-            movementDirection.x * transform.right) *
-            _movementSpeed * Time.deltaTime;
-
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            transform.position +=
+                (movementDirection.z * transform.forward +
+                movementDirection.x * transform.right) *
+                _movementSpeed * 2 * Time.deltaTime;
+        }
+        else
+        {
+            transform.position +=
+                (movementDirection.z * transform.forward +
+                movementDirection.x * transform.right) *
+                _movementSpeed * Time.deltaTime;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
