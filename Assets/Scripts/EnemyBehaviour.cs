@@ -2,28 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour
+public class EnemyBehaviour : CharacterBehaviour
 {
-    [SerializeField] private int _maxHealth;
-    private int _currentHealth;
-
-    void Start()
+    public override void Die()
     {
-        _currentHealth = _maxHealth;
+        transform.Rotate(-75f, 0, 0);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void Hit()
-    {
-        _currentHealth -= 1;
-        if(_currentHealth < 0)
-        {
-            transform.Rotate(-75f, 0, 0);
-        }
+        transform.LookAt(PlayerController.instance.transform);
     }
 }

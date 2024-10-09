@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 
-public class PlayerWeaponBehaivour : MonoBehaviour
+public class PlayerWeaponBehaivour : WeaponBehaviour
 {
-    [SerializeField] private GameObject _projectilePrefab;
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -18,15 +18,5 @@ public class PlayerWeaponBehaivour : MonoBehaviour
         }
     }
 
-    public void FireWeapon(RaycastHit hit)
-    {
-        GameObject projectile = Instantiate(_projectilePrefab);
-        projectile.transform.position = hit.point;
-        projectile.transform.parent = hit.transform;
 
-        if(hit.transform.tag == "Enemy")
-        {
-            hit.transform.GetComponent<EnemyBehaviour>().Hit();
-        }
-    }
 }
