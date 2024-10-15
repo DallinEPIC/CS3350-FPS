@@ -19,7 +19,7 @@ public class CharacterBehaviour : MonoBehaviour
     public void Hit()
     {
         _currentHealth -= 1;
-        if (_currentHealth < 0) Die();
+        if (_currentHealth <= 0) Die();
     }
 
     public virtual void Die()

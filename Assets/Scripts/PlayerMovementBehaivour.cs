@@ -5,35 +5,30 @@ using UnityEngine;
 public class PlayerMovementBehaivour : MonoBehaviour
 {
     [SerializeField] private float _movementSpeed;
+    private Rigidbody _rb;
 
     void Start()
     {
-
+        _rb = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
         Vector3 movementDirection = Vector3.zero;
-
         
         if (Input.GetKey(KeyCode.W)) { movementDirection += Vector3.forward; }
         if (Input.GetKey(KeyCode.S)) { movementDirection += Vector3.back; }
         if (Input.GetKey(KeyCode.A)) { movementDirection += Vector3.left; }
         if (Input.GetKey(KeyCode.D)) { movementDirection += Vector3.right; }
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            transform.position +=
+        movementDirection = movementDirection.normalized;
+        
+        Vector3 velocity =
                 (movementDirection.z * transform.forward +
                 movementDirection.x * transform.right) *
-                _movementSpeed * 2 * Time.deltaTime;
-        }
-        else
-        {
-            transform.position +=
-                (movementDirection.z * transform.forward +
-                movementDirection.x * transform.right) *
-                _movementSpeed * Time.deltaTime;
-        }
+                _movementSpeed;
+        if (Input.GetKey(KeyCode.LeftShift)) velocity *= 2;
+
+        _rb.velocity = velocity;
     }
 
     private void OnCollisionEnter(Collision collision)
